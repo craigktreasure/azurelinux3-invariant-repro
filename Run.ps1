@@ -1,5 +1,15 @@
 $ErrorActionPreference = 'Stop'
 
+if ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -ne 'Arm64') {
+    Write-Warning 'The issue demonstrated here will only repro on the Arm64 architecture.'
+
+    $continue = Read-Host 'Continue? (y/n)'
+    if ($continue -ne 'y') {
+        Write-Host 'Exiting...'
+        exit
+    }
+}
+
 Write-Host 'Building MyNewBlazoriseApp targeting .NET 8.0 into Mariner 2.0 .NET 8 container...' -ForegroundColor Magenta
 docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=8.0-cbl-mariner2.0-distroless-extra --build-arg sdkImageTag=9.0-azurelinux3.0 --build-arg TFM=net8.0 -t mynewblazoriseapp:net8-mariner2 .
 if ($LASTEXITCODE -ne 0) {

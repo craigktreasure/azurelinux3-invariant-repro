@@ -1,11 +1,3 @@
-# ARG baseImageTag=8.0-noble-chiseled-extra
-
-# FROM mcr.microsoft.com/dotnet/aspnet:${baseImageTag}
-
-# WORKDIR /app
-# COPY ./ /app
-# ENTRYPOINT ["dotnet", "MyNewBlazoriseApp.dll"]
-
 ARG sdkImageTag=9.0-azurelinux3.0
 ARG baseImageTag=9.0-azurelinux3.0-distroless-extra
 

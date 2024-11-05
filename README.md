@@ -6,12 +6,14 @@ Upgrading a simple Blazor application (using Blazorise in this case) that was pr
 the `8.0-azurelinux3.0-distroless-extra` or `8.0-cbl-mariner2.0-distroless-extra` containers to .NET 9 encounters
 globalization errors with the use of `9.0-azurelinux3.0-distroless-extra`.
 
+> **IMPORTANT**
+>
+> This issue only appears on ARM64 devices, which pull the ARM64 variant of the continer images by default.
+
 ## Instructions
 
 ### Pre-requisites
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [.NET 9 RC2 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
 - [Docker](https://www.docker.com/products/docker-desktop/)
 
 ### To recreate the repro from this repository
@@ -31,17 +33,7 @@ this effects other applications as well, but I don't know believe the issue I'm 
 
 2. Due to bugs in the template, remove entries to `MyNewBlazoriseApp.Client` in `MyNewBlazoriseApp.sln`.
 3. Change `<TargetFramework>net8.0</TargetFramework>` to `<TargetFrameworks>net8.0;net9.0</TargetFrameworks>` in `MyNewBlazoriseApp.csproj` to target both .NET 8 and 9.
-4. Create a Dockerfile at `MyNewBlazoriseApp/Dockerfile` with the following contents:
-
-   ```Dockerfile
-   ARG baseImageTag=8.0-noble-chiseled-extra
-
-   FROM mcr.microsoft.com/dotnet/aspnet:${baseImageTag}
-
-   WORKDIR /app
-   COPY ./ /app
-   ENTRYPOINT ["dotnet", "MyNewBlazoriseApp.dll"]
-   ```
+4. Create a Dockerfile at `MyNewBlazoriseApp/Dockerfile` with the following contents of the file [here](/MyNewBlazoriseApp/Dockerfile).
 
 ### Reproduce the issue
 
