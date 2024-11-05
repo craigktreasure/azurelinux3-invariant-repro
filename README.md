@@ -45,6 +45,9 @@ this effects other applications as well, but I don't know believe the issue I'm 
 
 ### Reproduce the issue
 
+You can either run the `Run.ps1` script in the root of the repository or run
+the commands manually below.
+
 ```shell
 docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=8.0-cbl-mariner2.0-distroless-extra --build-arg sdkImageTag=9.0-azurelinux3.0 --build-arg TFM=net8.0 -t mynewblazoriseapp:net8-mariner2 .
 docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=8.0-azurelinux3.0-distroless-extra --build-arg sdkImageTag=9.0-azurelinux3.0 --build-arg TFM=net8.0 -t mynewblazoriseapp:net8-azurelinux3 .
