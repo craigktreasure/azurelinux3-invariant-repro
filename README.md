@@ -46,12 +46,10 @@ this effects other applications as well, but I don't know believe the issue I'm 
 ### Reproduce the issue
 
 ```shell
-dotnet publish --configuration Release --framework net8.0
-dotnet publish --configuration Release --framework net9.0
-docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=8.0-cbl-mariner2.0-distroless-extra -t mynewblazoriseapp:net8-mariner2 .\MyNewBlazoriseApp\bin\Release\net8.0\publish\
-docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=8.0-azurelinux3.0-distroless-extra -t mynewblazoriseapp:net8-azurelinux3 .\MyNewBlazoriseApp\bin\Release\net8.0\publish\
-docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=9.0-noble-chiseled-extra -t mynewblazoriseapp:net9-noble .\MyNewBlazoriseApp\bin\Release\net9.0\publish\
-docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=9.0-azurelinux3.0-distroless-extra -t mynewblazoriseapp:net9-azurelinux3 .\MyNewBlazoriseApp\bin\Release\net9.0\publish\
+docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=8.0-cbl-mariner2.0-distroless-extra --build-arg sdkImageTag=9.0-azurelinux3.0 --build-arg TFM=net8.0 -t mynewblazoriseapp:net8-mariner2 .
+docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=8.0-azurelinux3.0-distroless-extra --build-arg sdkImageTag=9.0-azurelinux3.0 --build-arg TFM=net8.0 -t mynewblazoriseapp:net8-azurelinux3 .
+docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=9.0-noble-chiseled-extra --build-arg sdkImageTag=9.0-noble --build-arg TFM=net9.0 -t mynewblazoriseapp:net9-noble .
+docker build -f .\MyNewBlazoriseApp\Dockerfile --force-rm --build-arg baseImageTag=9.0-azurelinux3.0-distroless-extra --build-arg sdkImageTag=9.0-azurelinux3.0 --build-arg TFM=net9.0 -t mynewblazoriseapp:net9-azurelinux3 .
 docker run --rm -it -p 8080:8080 -e ASPNETCORE_ENVIRONMENT=Development mynewblazoriseapp:net8-mariner2
 # Open http://localhost:8080 and observe the working site. Hit ctrl+c to exit.
 docker run --rm -it -p 8080:8080 -e ASPNETCORE_ENVIRONMENT=Development mynewblazoriseapp:net8-azurelinux3
