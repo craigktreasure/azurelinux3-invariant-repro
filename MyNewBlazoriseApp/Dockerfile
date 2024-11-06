@@ -13,7 +13,7 @@ RUN dotnet restore
 COPY . .
 RUN dotnet publish --configuration Release --framework $TFM --no-restore -o /app
 
-FROM mcr.microsoft.com/dotnet/aspnet:${baseImageTag}
+FROM mcr.microsoft.com/dotnet/nightly/aspnet:${baseImageTag}
 WORKDIR /app
 COPY --from=build /app .
 ENTRYPOINT ["./MyNewBlazoriseApp"]
